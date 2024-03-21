@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: sb3-observability
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+---
+spring:
+  config:
+    activate:
+      on-profile: compose
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+server:
+  port: 8090
+
+---
+spring:
+  config:
+    activate:
+      on-profile: k3d
