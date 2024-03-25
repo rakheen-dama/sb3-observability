@@ -2,20 +2,14 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.3'
     id 'io.spring.dependency-management' version '1.1.4'
-    id 'org.graalvm.buildtools.native' version '0.9.28'
+    id 'idea'
 }
 
 group = 'io.b2mash'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '21'
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
+    sourceCompatibility = '22'
 }
 
 repositories {
@@ -25,9 +19,17 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    runtimeOnly 'io.micrometer:micrometer-registry-otlp'
+    testAndDevelopmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
 }
 
 tasks.named('test') {

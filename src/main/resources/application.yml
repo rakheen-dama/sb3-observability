@@ -6,7 +6,12 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,prometheus
+        include: health
+  otlp:
+    metrics:
+      export:
+        url: http://localhost:4318/v1/metrics
+        step: 10s
 ---
 spring:
   config:
@@ -22,8 +27,15 @@ spring:
 server:
   port: 8090
 
+debug: true
+
+logging:
+  level:
+    org.springframework.boot.actuate: trace
+    org.springframework: trace
+    io.micrometer.registry: trace
 ---
 spring:
   config:
     activate:
-      on-profile: k3d
+      on-profile: homelab

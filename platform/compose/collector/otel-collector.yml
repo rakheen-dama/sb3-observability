@@ -1,0 +1,39 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+
+processors:
+  batch:
+
+exporters:
+  logging:
+    verbosity: detailed
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    const_labels:
+      label1: value1
+
+# https://github.com/open-telemetry/opentelemetry-collector/blob/main/extension/README.md
+extensions:
+  # respond to health checks on behalf of collector
+  health_check:
+  # fetches collector's performance data
+  pprof:
+  # http endpoint for live debugging data about instrumented components
+  zpages:
+
+service:
+  extensions: [health_check, pprof, zpages]
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [prometheus, logging]
+#    traces:
+#      receivers: [otlp]
+#      processors: [batch]
+#      exporters: [otlp]
+#    logs:
+#      receivers: [otlp]
+#      processors: [batch]
+#      exporters: [otlp]
