@@ -14,6 +14,12 @@ exporters:
     const_labels:
       label1: value1
 
+  otlp:
+    endpoint: tempo:4317
+    tls:
+      insecure: true
+
+
 #  jaeger:
 #    endpoint: jaeger:14250
 #    tls:
@@ -41,7 +47,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [zipkin]
+      exporters: [zipkin, logging, otlp]
 #    logs:
 #      receivers: [otlp]
 #      processors: [batch]
