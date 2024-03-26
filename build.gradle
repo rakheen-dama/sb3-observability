@@ -9,7 +9,7 @@ group = 'io.b2mash'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '22'
+    sourceCompatibility = '21'
 }
 
 repositories {
@@ -21,6 +21,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     runtimeOnly 'io.micrometer:micrometer-registry-otlp'
+    runtimeOnly 'io.micrometer:micrometer-tracing-bridge-otel'
+    runtimeOnly 'io.opentelemetry:opentelemetry-exporter-otlp'
     testAndDevelopmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
